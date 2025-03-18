@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sketch</title>
+    <link rel="stylesheet" type="text/css" href="style3.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.min.js"></script>
+    <style>
+        /* 카운트다운 스타일 */
+        #countdown {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 30px;
+            font-weight: bold;
+            color: red;
+            display: none; /* 처음에는 숨김 */
+        }
+
+        /* 배경 스타일 (기본: 낮) */
+        body {
+            background-color: #FFEC8B; /* 낮 (밝은 노랑) */
+            transition: background-color 2s linear;
+        }
+    </style>
+</head>
+<body>
+
+    <script src="sketch.js"></script>
+    <div id="gameText"></div>
+    <div class="grain-overlay"></div>
+
+    <div class="container">
+        <!-- 카운트다운 표시 -->
+        <div id="countdown">30</div>
+
+        <!-- 오븐 (초기 상태) -->
+        <img id="oven" class="oven" src="oven.gif" alt="oven">
+
+        <!-- 빵 (드래그 가능) -->
+        <img id="bread6" class="bread6" src="bread6.gif" alt="bread6" draggable="true">
+    </div>
+
+    <script>
+        let bread = document.getElementById("bread6");
+        let oven = document.getElementById("oven");
+        let countdownElement = document.getElementById("countdown");
+        let countdown = 30; // 30초 카운트다운
+        let time = 0;
+
+        // Step 1: 빵을 드래그 시작
+        bread.addEventListener("dragstart", function(event) {
+            event.dataTransfer.setData("text", event.target.id);
+        });
+
+        // Step 2: 오븐 위에서 드래그 가능
+        oven.addEventListener("dragover", function(event) {
+            event.preventDefault();
+        });
+
+        // Step 3: 빵을 오븐에 드롭하면
+        oven.addEventListener("drop", function(event) {
+            event.preventDefault();
+            
+            if (bread.src.includes("bread6.gif")) {
+                oven.src = "oven2.gif"; // 오븐 문 열림
+                bread.style.display = "none"; // 빵 사라짐
+
+                // Step 4: 1초 후 오븐 문 닫히면서 oven3.gif로 변경 & 카운트다운 시작
+                setTimeout(() => {
+                    oven.src = "oven3.gif"; // 빵이 들어간 오븐 상태
+                    startCountdown(); // 카운트다운 시작
+                    startBackgroundChange(); // 배경색 변화 시작
+                }, 2000);
+            }
+        });
+
+        // Step 5: 30초 카운트다운 기능
+        function startCountdown() {
+            countdownElement.style.display = "block"; // 카운트다운 화면에 표시
+            countdownElement.innerText = countdown; // 초기값 표시
+
+            let timer = setInterval(() => {
+                countdown--;
+                countdownElement.innerText = countdown;
+
+                if (countdown <= 0) {
+                    clearInterval(timer); // 카운트다운 종료
+                    countdownElement.style.display = "none"; // 카운트다운 숨김
+                    oven.src = "oven4.gif"; // 오븐 문이 다시 열리면서 빵 완성!
+                    oven.addEventListener("click", openOven); // oven4.gif 클릭 시 openOven 함수 실행
+                }
+            }, 1000); // 1초마다 실행
+        }
+
+        // Step 6: 배경색을 저녁으로 변경하는 함수
+        function startBackgroundChange() {
+            let colors = [
+                "#FFD580", // 노을빛 (주황)
+                "#FFB347", // 늦은 오후 (붉은 주황)
+                "#D56F3E", // 저녁 (짙은 주황/보라)
+                "#3F21A7"  // 밤 (어두운 남색)
+            ];
+            let step = 0;
+
+            let bgTimer = setInterval(() => {
+                if (step < colors.length) {
+                    document.body.style.backgroundColor = colors[step];
+                    step++;
+                } else {
+                    clearInterval(bgTimer); // 배경색 변경 종료
+                }
+            }, 7500); // 7.5초마다 변경 (30초 동안 4번 변화)
+        }
+
+        // Step 7: oven4.gif를 클릭하면 oven5.gif로 변경
+        function openOven() {
+            if (oven.src.includes("oven4.gif")) {
+                oven.src = "oven5.gif";
+                oven.removeEventListener("click", openOven); // 이벤트 제거 후 다음 단계로 진행
+                oven.addEventListener("click", goToFinal); // oven5.gif 클릭 시 final.html로 이동
+            }
+        }
+
+        // Step 8: oven5.gif를 클릭하면 final.html로 이동
+        function goToFinal() {
+            if (oven.src.includes("oven5.gif")) {
+                window.location.href = "final.html"; // final.html 페이지로 이동
+            }
+        }
+    </script>
+
+</body>
+</html>

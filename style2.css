@@ -1,0 +1,126 @@
+.baking2 {
+    position: absolute;
+  
+    top: 60px;
+    left: 280px;
+    width: 1000px;
+    height: auto;
+    z-index: 100;
+    clip-path: inset(60px 100px 260px 13px); 
+}
+.background {
+    position: absolute;
+    width: 1530px;
+    height: 900px;
+    top: -10px;
+    left: -10px;
+}
+.bowl {
+    position: absolute;
+    
+    width: 800px;
+    height: auto;
+    top: 300px;
+    left: 380px;
+    clip-path: inset(60px 19px 26px 13px); 
+    cursor: grab;
+}
+.bowl2 {
+    position: absolute;
+    
+    width: 800px;
+    height: auto;
+    top: 300px;
+    left: 380px;
+    clip-path: inset(60px 19px 26px 13px); 
+}
+.bread {
+    position: absolute;
+    
+    width: 800px;
+    top: 300px;
+    left: 300px;
+    clip-path: inset(100px 19px 26px 430px); 
+}
+.bread2 {
+    position: absolute;
+    
+    width: 800px;
+    top: 300px;
+    left: 300px;
+    clip-path: inset(100px 19px 26px 430px); 
+}
+.bread3 {
+    position: absolute;
+    
+    width: 800px;
+    top: 300px;
+    left: 300px;
+    clip-path: inset(100px 19px 26px 430px); 
+}
+.bread4 {
+    position: absolute;
+    
+    width: 800px;
+    top: 300px;
+    left: 300px;
+    clip-path: inset(100px 19px 26px 430px); 
+}
+.bread5 {
+    position: absolute;
+    
+    width: 800px;
+    top: 300px;
+    left: 300px;
+    clip-path: inset(100px 19px 26px 430px); 
+}
+.bread6 {
+    position: absolute;
+    
+    width: 800px;
+    top: 300px;
+    left: 300px;
+    clip-path: inset(100px 19px 26px 430px); 
+}
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* 스크롤 없애기 */
+    width: 100%;
+    height: 100%;
+}
+
+.container {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden; /* 스크롤 방지 */
+}
+
+img.fullscreen-bg {
+    position: fixed; /* 고정 위치 */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover; /* 화면에 꽉 차게 */
+}
+#gameText {
+    z-index: 1000;
+    position: absolute;
+    top: 90%;
+    left: 75%;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+    font-family: "Courier New", monospace; /* 타자기 느낌 폰트 */
+    white-space: nowrap; /* 줄바꿈 방지 */
+    overflow: hidden;
+    border-right: 3px solid white; /* 커서 효과 */
+    animation: blinkCursor 0.8s infinite;
+  }
+  
+  /* 커서 깜빡이는 효과 */
+  @keyframes blinkCursor {
+    50% { border-color: transparent; }
+  }
